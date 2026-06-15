@@ -1,0 +1,18 @@
+---
+import type { Post } from "../../types/post";
+import PostCard from "../molecules/PostCard.astro";
+import { getPosts } from "../../utils/posts";
+const posts = await getPosts();
+---
+
+<ul
+  class="list-none p-0 m-0 grid grid-cols-1 gap-0 md:grid-cols-3 md:auto-cols-(--grid-col-width)"
+>
+  {
+    posts.map((post: Post) => (
+      <li class="min-h-0 first:md:col-span-2 first:md:row-span-2">
+        <PostCard post={post} isRelated={false} />
+      </li>
+    ))
+  }
+</ul>

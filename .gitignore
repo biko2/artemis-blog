@@ -3,7 +3,7 @@
 
 # jetbrains setting folder
 .idea/
-
+.env.development
+.env.production
 node_modules/
-
 .pnpm-store/

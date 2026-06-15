@@ -1,0 +1,52 @@
+---
+import { absoluteImg } from "../../utils/images";
+import base from "../../utils/base";
+import type { Post } from "../../types/post";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeaderPost from "../../components/organisms/HeaderPost.astro";
+import RelatedArticles from "../../components/organisms/RelatedArticles.astro";
+
+export async function getStaticPaths() {
+  const res = await fetch(import.meta.env.PUBLIC_API_BASE + "/api/v1/posts");
+  const posts: Post[] = await res.json();
+  return posts.map((post: Post) => ({
+    params: { slug: post.slug },
+    props: { post, allPosts: posts },
+  }));
+}
+
+const { post }: { post: Post } = Astro.props;
+---
+
+<BaseLayout
+  title={`${post.title} · The Artemis Diary`}
+  description={post.excerpt}
+  ogType="article"
+  ogImage={absoluteImg(post.coverImage.src, Astro.site, base)}
+  ogImageAlt={post.coverImage.alt}
+>
+  <meta slot="head" name="author" content={post.author} />
+  <meta
+    slot="head"
+    property="article:published_time"
+    content={post.publishedAt}
+  />
+  <meta slot="head" property="article:author" content={post.author} />
+  <meta slot="head" property="article:tag" content={post.tags} />
+  <article>
+    <div
+      class="w-full lg:max-w-190 lg:mx-auto flex flex-col px-6 lg:px-0 py-8 lg:py-16"
+    >
+      <HeaderPost post={post} />
+      <section
+        class="content leading-relaxed text-(--color-text)"
+        set:html={"<spam class='font-bold'>" +
+          post.excerpt +
+          "</spam>" +
+          post.content}
+      />
+    </div>
+  </article>
+  <RelatedArticles tags={post.tags} />
+</BaseLayout>

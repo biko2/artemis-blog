@@ -1,0 +1,34 @@
+---
+import type { Post } from "../../types/post";
+import { base } from "../../utils/base";
+import { localImg } from "../../utils/images";
+import DatePublished from "../atoms/DatePublished.astro";
+import H1 from "../atoms/H1.astro";
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+---
+
+<header class="flex flex-col gap-6 pb-8 lg:pt-12 lg:pb-0 lg:px-0 lg:gap-8">
+  <a
+    class="label tracking-widest uppercase text-(--color-text-secondary) hover:text-(--color-accent-gold)"
+    href={`${base}/`}>← Back to stories</a
+  >
+  <figure class="w-full max-h-80 overflow-hidden">
+    <img
+      transition:name={`picture-${post.id}`}
+      class="w-full h-120 object-cover"
+      src={localImg(post.coverImage.src, base)}
+      alt={post.coverImage.alt}
+    />
+  </figure>
+  <H1>{post.title}</H1>
+  <footer
+    class="label flex flex-col lg:flex-row lg:items-center gap-x-2 text-(--color-text-secondary) pb-5"
+  >
+    <DatePublished aDate={post.publishedAt} />
+    <span class="hidden lg:inline" aria-hidden="true">·</span>
+    <span class="uppercase">{post.readingTime} min read</span>
+  </footer>
+</header>

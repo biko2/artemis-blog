@@ -1,0 +1,18 @@
+---
+interface Props {
+  type: "hero" | "related";
+}
+const { type = "hero" } = Astro.props;
+---
+
+<p
+  class:list={[
+    "label uppercase text-(--color-accent-gold)",
+    {
+      "": type === "hero",
+      "tracking-widest": type === "related",
+    },
+  ]}
+>
+  <slot />
+</p>

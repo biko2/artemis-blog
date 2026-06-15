@@ -1,0 +1,69 @@
+---
+import type { Post } from "../../types/post";
+import { localImg } from "../../utils/images";
+import base from "../../utils/base";
+import DatePublished from "../../components/atoms/DatePublished.astro";
+import Images from "../atoms/Img.astro";
+interface Props {
+  post: Post;
+  isRelated?: boolean;
+}
+
+const { post, isRelated = false } = Astro.props;
+---
+
+<article
+  class:list={[
+    "h-full relative z-0 focus-within:z-10",
+    { "lg:rounded-xl": !isRelated }
+  ]}
+>
+  <a
+    data-astro-prefetch
+    href={`${base}/posts/${post.slug}`}
+    class="group relative block w-full h-full aspect-square no-underline text-inherit
+          focus-visible:outline
+          focus-visible:outline-offset-0
+          focus-visible:outline-(--color-accent-blue)"
+  >
+      <div
+        class:list={[
+          "absolute inset-0 overflow-hidden",
+          { "lg:rounded-xl": !isRelated }
+        ]}
+      >
+      <Images
+        transition:name={`picture-${post.id}`}
+        class="absolute inset-0 w-full h-full object-cover block"
+        src={localImg(post.coverImage.src, base)}
+        alt={post.coverImage.alt}
+      />
+
+      <div
+        class="absolute inset-0 flex items-end hover:bg-[linear-gradient(180deg,rgba(0,0,0,0.25)_0%,rgba(0,0,0,0.55)_50%,rgba(0,0,0,0.85)_100%)] opacity-100 transition-opacity duration-300"
+      >
+        <div  class:list={[
+            "p-8 flex flex-col gap-4 text-white w-full transition-[opacity,transform] duration-350 ease-in-out",
+            { "lg:opacity-0 lg:translate-y-3 lg:group-hover:opacity-100 lg:group-hover:translate-y-0": !isRelated }
+          ]}>
+          <DatePublished aDate={post.publishedAt} />
+          <h2 class:list={['label leading-snug m-0', { 'font-bold': !isRelated }]}>
+            {post.title}
+          </h2>
+          {
+            !isRelated && (
+              <>
+                <p class="text-[0.85rem] opacity-85 line-clamp-1 m-0">
+                  {post.excerpt}
+                </p>
+                <span class="caption text-(--color-accent-gold) font-medium mt-1 tracking-wide">
+                  Read story →
+                </span>
+              </>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </a>
+</article>

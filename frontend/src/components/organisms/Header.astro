@@ -1,0 +1,27 @@
+---
+import { base } from "../../utils/base";
+import { localImg } from "../../utils/images";
+import { Image } from "astro:assets";
+---
+
+<header
+  class="py-4 px-5 flex items-center bg-(--color-header-bg) border-b border-(--color-header-line)"
+>
+  <div class="w-full lg:container lg:mx-auto lg:px-16">
+    <a
+      href={`${base}/`}
+      class="inline-block rounded-sm
+      focus-visible:outline-2
+      focus-visible:outline-offset-4
+      focus-visible:outline-(--color-accent-blue)"
+    >
+      <Image
+        class="h-12 w-auto font-bold"
+        src={localImg(`/images/artemis-logo.png`, base)}
+        alt="The Artemis Diary Logotipo"
+        width={92}
+        height={96}
+      />
+    </a>
+  </div>
+</header>

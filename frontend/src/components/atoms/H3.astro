@@ -1,0 +1,19 @@
+---
+interface Props {
+  type: "footer" | "related";
+}
+const { type = "footer" } = Astro.props as Props;
+---
+
+<h3
+  class:list={[
+    "heading-h2 text-(--color-text)",
+    {
+      "font-bold": type === "footer",
+      "font-normal lg:font-bold leading-snug lg:tracking-tight":
+        type === "related",
+    },
+  ]}
+>
+  <slot />
+</h3>

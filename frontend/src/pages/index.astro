@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GridPost from "../components/organisms/GridPost.astro";
+import Hero from "../components/organisms/Hero.astro";
+import { base } from "../utils/base";
+import { absoluteImg } from "../utils/images";
+---
+
+<BaseLayout
+  title="The Artemis Diary"
+  description="Crónicas de la misión Artemis II: el regreso de la humanidad al espacio profundo."
+  ogImage={absoluteImg("/images/artemis-mission.jpg", Astro.site, base)}
+>
+  <Hero />
+  <GridPost />
+</BaseLayout>

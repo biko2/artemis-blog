@@ -13,6 +13,10 @@
     "build": "pnpm --dir backend build",
     "build:api": "pnpm --dir backend build",
     "start": "pnpm --dir backend start",
-    "preview": "pnpm build:api && pnpm --dir backend start"
+    "preview": "pnpm build:api && pnpm --dir backend start",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }

@@ -1,5 +1,76 @@
 # The Artemis diary
 
+```
+artemis-blog-f5-EA/
+├── .nvmrc
+├── .gitignore
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   └── settings.json
+├── package.json
+├── pnpm-workspace.yaml
+├── README.md
+├── backend/
+│   ├── .gitignore
+│   ├── images/
+│   │   └── *.jpg
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── src/
+│       ├── index.ts
+│       └── routes/
+│           ├── posts.json
+│           └── posts.routes.ts
+└── frontend/
+    ├── .env.development
+    ├── .env.production
+    ├── .gitignore
+    ├── .vscode/
+    │   ├── extensions.json
+    │   └── launch.json
+    ├── astro.config.mjs
+    ├── package.json
+    ├── tsconfig.json
+    ├── public/
+    │   ├── favicon.ico
+    │   └── favicon.svg
+    └── src/
+        ├── layouts/
+        │   └── BaseLayout.astro
+        ├── pages/
+        │   ├── index.astro
+        │   └── posts/
+        │       └── [slug].astro
+        ├── components/
+        │   ├── atoms/
+        │   │   ├── DatePublished.astro
+        │   │   ├── H3.astro
+        │   │   └── PreTitle.astro
+        │   ├── molecules/
+        │   │   ├── PostCard.astro
+        │   │   └── RelatedArticlesList.astro
+        │   └── organisms/
+        │       ├── Footer.astro
+        │       ├── GridPost.astro
+        │       ├── Header.astro
+        │       ├── HeaderPost.astro
+        │       ├── Hero.astro
+        │       └── RelatedArticles.astro
+        ├── styles/
+        │   └── global.css
+        ├── types/
+        │   └── post.ts
+        └── utils/
+            ├── base.ts
+            ├── formatDate.js
+            ├── formatDate.test.js
+            ├── images.ts
+            ├── postUtils.js
+            ├── postUtils.test.js
+            └── postUtilss.ts
+```
+
 ## Contexto
 
 Disponéis de este repositorio base que incluye:

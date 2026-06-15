@@ -1,0 +1,19 @@
+---
+import RelatedArticlesList from "../molecules/RelatedArticlesList.astro";
+import H3 from "../atoms/H3.astro";
+import PreTitle from "../atoms/PreTitle.astro";
+
+interface Props {
+  tags: string;
+}
+
+const { tags } = Astro.props;
+---
+
+<aside aria-label="Artículos relacionados">
+  <header class="flex flex-col pt-12 py-16 px-6 border-(--color-border) gap-2">
+    <PreTitle type="related">CONTINUE READING</PreTitle>
+    <H3 type="related">Related stories</H3>
+  </header>
+  <RelatedArticlesList tags={tags} />
+</aside>
