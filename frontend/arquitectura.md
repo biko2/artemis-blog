@@ -155,3 +155,58 @@ El truco: los componentes **nunca llaman a `fetch` directamente**, nunca acceden
 - **Cambiar de librería de imágenes** solo toca `infrastructure/formatters/`
 - **Probar lógica de negocio** sin cargar Astro ni el DOM
 - **Los componentes Astro** quedan limpios, solo reciben props y renderizan
+
+/**
+claude
+*/
+src/
+├── domain/                        # Núcleo — cero dependencias de Astro
+│   ├── models/
+│   │   └── Article.ts
+│   ├── ports/
+│   │   └── ArticleRepository.ts   # Interfaz
+│   └── use-cases/
+│       ├── GetArticles.ts
+│       └── GetArticleBySlug.ts
+│
+├── infrastructure/                # Implementaciones concretas
+│   ├── repositories/
+│   │   ├── HttpArticleRepository.ts     # Llama a la API de Astro
+│   │   └── InMemoryArticleRepository.ts # Para tests
+│   └── di/
+│       └── container.ts           # Composición de dependencias
+│
+├── presentation/                  # Todo lo visual de Astro
+│   ├── components/
+│   │   ├── ArticleCard.astro
+│   │   ├── ArticleList.astro
+│   │   └── ArticleDetail.astro
+│   └── mappers/
+│       └── ArticlePresenter.ts    # Dominio → ViewModel para la UI
+│
+└── pages/
+    ├── api/                       # Endpoints (lado servidor)
+    │   └── articles/
+    │       ├── index.ts           # GET /api/articles
+    │       └── [slug].ts          # GET /api/articles/:slug
+    └── blog/                      # Páginas públicas
+        ├── index.astro
+        └── [slug].astro
+
+/*puerto*/
+  export interface ArticleRepository { 
+    findAll(): Promise<Article[]> findBySlug(slug: string): Promise<Article | null> 
+    findByCategory(category: string): Promise<Article[]> 
+  }        
+/*adapter*/
+  export const httpArticleRepository: ArticleRepository = { 
+    async findAll() { 
+      const res = await fetch('/api/articles') return res.json() 
+    }, 
+    async findBySlug(slug) { 
+      const res = await fetch(`/api/articles/${slug}`) return res.json() 
+    }, 
+    async findByCategory(category) { 
+      const res = await fetch(`/api/articles?category=${category}`) return res.json() 
+    } 
+  }
